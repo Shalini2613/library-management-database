@@ -18,3 +18,28 @@ FROM Borrow_Records
 JOIN Members ON Borrow_Records.member_id = Members.member_id
 JOIN Books ON Borrow_Records.book_id = Books.book_id
 WHERE Borrow_Records.return_date > Borrow_Records.due_date;
+-- 4. Count how many books each author has (GROUP BY + aggregate)
+SELECT Authors.author_name, COUNT(Books.book_id) AS total_books
+FROM Authors
+JOIN Books ON Authors.author_id = Books.author_id
+GROUP BY Authors.author_name;
+
+-- 5. Find the most borrowed book (GROUP BY + ORDER BY + LIMIT)
+SELECT Books.title, COUNT(Borrow_Records.record_id) AS times_borrowed
+FROM Borrow_Records
+JOIN Books ON Borrow_Records.book_id = Books.book_id
+GROUP BY Books.title
+ORDER BY times_borrowed DESC
+LIMIT 1;
+
+-- 6. Find members who have borrowed MORE THAN 1 book (GROUP BY + HAVING)
+SELECT Members.member_name, COUNT(Borrow_Records.record_id) AS books_borrowed
+FROM Borrow_Records
+JOIN Members ON Borrow_Records.member_id = Members.member_id
+GROUP BY Members.member_name
+HAVING COUNT(Borrow_Records.record_id) > 1;
+
+-- 7. Find books that have NEVER been borrowed (SUBQUERY)
+SELECT title
+FROM Books
+WHERE book_id NOT IN (SELECT book_id FROM Borrow_Records);
