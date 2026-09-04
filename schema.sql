@@ -19,3 +19,11 @@ CREATE TABLE Books (
     available_copies INT DEFAULT 1,
     FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
+-- Members table
+CREATE TABLE Members (
+    member_id INT AUTO_INCREMENT PRIMARY KEY,
+    member_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15),
+    join_date DATE DEFAULT (CURRENT_DATE)
+);
