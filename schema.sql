@@ -38,3 +38,11 @@ CREATE TABLE Borrow_Records (
     FOREIGN KEY (book_id) REFERENCES Books(book_id),
     FOREIGN KEY (member_id) REFERENCES Members(member_id)
 );
+-- Fines table
+CREATE TABLE Fines (
+    fine_id INT AUTO_INCREMENT PRIMARY KEY,
+    record_id INT,
+    fine_amount DECIMAL(6,2) DEFAULT 0.00,
+    paid BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (record_id) REFERENCES Borrow_Records(record_id)
+);
