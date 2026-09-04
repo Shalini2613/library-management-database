@@ -27,3 +27,14 @@ CREATE TABLE Members (
     phone VARCHAR(15),
     join_date DATE DEFAULT (CURRENT_DATE)
 );
+-- Borrow_Records table
+CREATE TABLE Borrow_Records (
+    record_id INT AUTO_INCREMENT PRIMARY KEY,
+    book_id INT,
+    member_id INT,
+    borrow_date DATE DEFAULT (CURRENT_DATE),
+    due_date DATE,
+    return_date DATE,
+    FOREIGN KEY (book_id) REFERENCES Books(book_id),
+    FOREIGN KEY (member_id) REFERENCES Members(member_id)
+);
